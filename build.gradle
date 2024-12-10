@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass = 'org.example.Main'
+    mainClass = 'org.example.grpc.PeerToPeerServer'
 }
 
 group = 'org.example'

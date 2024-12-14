@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_package = "com.example.grpc";
+option java_outer_classname = "Mini3Proto";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+service StoreService {
+  rpc PutMessage (PutMessageRequest) returns (PutMessageResponse);
+  rpc GetKeySize (EmptyInput) returns (GetKeySizeResponse);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message EmptyInput {}
+
+message PutMessageRequest {
+  map<string, string> map = 1;
+}
+
+message PutMessageResponse {
+  map<string, string> putResponse = 1;
+}
+
+message GetKeySizeResponse {
+  int32 getKeySizeResponse = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

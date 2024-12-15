@@ -7,17 +7,17 @@ import org.example.consistenthashing.ConsistentHashing;
 import org.example.forward.ForwardMessage;
 
 public class Storage {
-    HashMap<String, String> storage; 
+    HashMap<String, String> kv; 
     BlockingQueue<StorageRequest> requestQueue;
     BlockingQueue<ForwardMessage> forwardQueue;
     ConsistentHashing consistentHashing;
 
     public Storage() {
-        this.storage = new HashMap<String, String>();
+        this.kv = new HashMap<String, String>();
     }
 
     public Storage(BlockingQueue<StorageRequest> requestQueue, BlockingQueue<ForwardMessage> forwardQueue, ConsistentHashing consistentHashing) {
-        this.storage = new HashMap<String, String>();
+        this.kv = new HashMap<String, String>();
         this.consistentHashing = consistentHashing;
         this.requestQueue = requestQueue;
         this.forwardQueue = forwardQueue;
@@ -30,8 +30,8 @@ public class Storage {
         t.start();
     }
 
-    int getSize() {
-        return this.storage.size();
+    public int getSize() {
+        return this.kv.size();
     } 
 
     private void run() {
@@ -43,7 +43,7 @@ public class Storage {
                     continue;
                 }
                 if (consistentHashing.manageKey(request.getKey())) {
-                    this.storage.put(request.getKey(), request.getValue());
+                    this.kv.put(request.getKey(), request.getValue());
                 } else {
                     ForwardMessage message = new ForwardMessage(request.getKey(), request.getValue(), consistentHashing.getNodeManage(request.getKey()));
                     this.forwardQueue.put(message);

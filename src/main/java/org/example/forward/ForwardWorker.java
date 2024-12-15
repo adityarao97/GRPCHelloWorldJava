@@ -2,32 +2,34 @@ package org.example.forward;
 
 import java.util.concurrent.BlockingQueue;
 
+import org.example.node.Node;
+
 import com.example.grpc.PeerToPeerGrpc;
 import com.example.grpc.PeerToPeerGrpc.PeerToPeerBlockingStub;
 import com.example.grpc.PeerToPeerProto;
 
 import io.grpc.ManagedChannelBuilder;
 
-public class PeerConnection {
-    private int[] ports;
+public class ForwardWorker{
+    private Node[] nodes;
     private int serverPort;
     private PeerToPeerBlockingStub[] stubs;
     private BlockingQueue<ForwardMessage> queue;
 
-    public PeerConnection(int[] ports, int serverPort, BlockingQueue<ForwardMessage> queue) {
-        this.ports = ports;
+    public ForwardWorker(Node[] nodes, int serverPort, BlockingQueue<ForwardMessage> queue) {
+        this.nodes = nodes;
         this.serverPort = serverPort;
         this.queue = queue;
-        this.stubs = new PeerToPeerBlockingStub[ports.length];
-        for (int i = 0; i < ports.length; i++) {
-            this.stubs[i] = PeerToPeerGrpc.newBlockingStub(ManagedChannelBuilder.forAddress("localhost", ports[i])
+        this.stubs = new PeerToPeerBlockingStub[nodes.length];
+        for (int i = 0; i < nodes.length; i++) {
+            this.stubs[i] = PeerToPeerGrpc.newBlockingStub(ManagedChannelBuilder.forAddress("localhost", this.nodes[i].getPort())
                     .usePlaintext()
                     .build()).withWaitForReady();
         }   
     
         Thread t = new Thread() {
             public void run() {
-                PeerConnection.this.run();
+                ForwardWorker.this.run();
             }
         };
         t.start();
@@ -49,8 +51,8 @@ public class PeerConnection {
 
     private void send(String key, String value, int to) {
         int index = -1;
-        for (int i = 0; i < this.ports.length; i++) {
-            if (this.ports[i] == to) {
+        for (int i = 0; i < this.nodes.length; i++) {
+            if (this.nodes[i].getPort() == to) {
                 index = i;
                 break;
             }

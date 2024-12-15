@@ -10,7 +10,7 @@ import com.example.grpc.PeerToPeerProto.ForwardResponse;
 
 import io.grpc.stub.StreamObserver;
 
-class PeerToPeerImpl extends PeerToPeerImplBase {
+public class PeerToPeerImpl extends PeerToPeerImplBase {
     private BlockingQueue<StorageRequest> requestQueue;
     public PeerToPeerImpl() {
         this.requestQueue = null;
@@ -30,6 +30,7 @@ class PeerToPeerImpl extends PeerToPeerImplBase {
         }
 
         ForwardResponse reply = ForwardResponse.newBuilder().setMessage(message).build();
+
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }

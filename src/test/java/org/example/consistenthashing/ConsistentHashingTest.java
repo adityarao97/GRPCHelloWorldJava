@@ -14,7 +14,7 @@ public class ConsistentHashingTest {
     @BeforeEach
     public void setUp() {
         Node[] ports = {new Node(8080), new Node(8081), new Node(8082)};
-        int rootPort = 8080;
+        Node rootPort = new Node(8080);
         consistentHashing = new ConsistentHashing(ports, rootPort);
         System.err.println("setUp: consistentHashing initialized");
     }

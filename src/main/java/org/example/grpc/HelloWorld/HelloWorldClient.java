@@ -1,4 +1,4 @@
-package org.example.grpc;
+package org.example.grpc.HelloWorld;
 
 import com.example.grpc.GreeterGrpc;
 import com.example.grpc.HelloWorldProto;

@@ -12,14 +12,14 @@ public class ConsistentHashing {
     private Bucket[] buckets;
     private Set<Bucket> manageBucket;
 
-    public ConsistentHashing(Node[] nodes, int rootPort) {
+    public ConsistentHashing(Node[] nodes, Node root) {
         this.nodes = nodes; 
         this.buckets = new Bucket[nodes.length]; 
         this.manageBucket = new java.util.HashSet<Bucket>();
         for (int i = 0; i < nodes.length; i++) {
             this.buckets[i] = new Bucket(this.nodes[i]); 
 
-            if (nodes[i].getPort() == rootPort)
+            if (nodes[i].getPort() == root.getPort())
                 this.manageBucket.add(this.buckets[i]);
         }
     }

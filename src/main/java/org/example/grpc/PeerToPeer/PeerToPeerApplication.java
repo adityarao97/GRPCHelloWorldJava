@@ -20,7 +20,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 
 import org.example.forward.ForwardMessage;
-import org.example.forward.PeerConnection;
+import org.example.forward.ForwardWorker;
 import org.example.node.Node;
 
 public class PeerToPeerApplication {
@@ -37,10 +37,11 @@ public class PeerToPeerApplication {
         //
         int[] peerPorts = new int[1];
         peerPorts[0] = peerPort;
+        Node[] peerNodes = Node.createNodes(peerPorts);
         Node peerNode = new Node(peerPort);
 
         BlockingQueue<ForwardMessage> queue = new ArrayBlockingQueue<>(1000);
-        PeerConnection connection = new PeerConnection(peerPorts, serverPort, queue);
+        ForwardWorker connection = new ForwardWorker(peerNodes, serverPort, queue);
 
         Thread producer = new Thread() {
             public void run() {

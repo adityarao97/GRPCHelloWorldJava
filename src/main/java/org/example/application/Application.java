@@ -19,10 +19,7 @@ import io.grpc.Server;
 public class Application {
     public static void main(String[] args) throws IOException, InterruptedException {
         int serverPort = Integer.parseInt(args[0]);
-        int peerPort = Integer.parseInt(args[1]);
-
-        int[] peerPorts = new int[1];
-        peerPorts[0] = peerPort;
+        String[] peerPorts = args[1].split(",");
 
         Node[] peerNodes = Node.createNodes(peerPorts);
         Node serverNode = new Node(serverPort);

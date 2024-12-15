@@ -5,7 +5,17 @@ plugins {
 }
 
 application {
-    mainClass = 'org.example.grpc.PeerToPeerServer'
+    mainClass = 'org.example.application.Application'
+}
+
+task(runServer, dependsOn: 'classes', type: JavaExec) {
+   main = 'org.example.application.Application'
+   classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runClient, dependsOn: 'classes', type: JavaExec) {
+   main = 'org.example.grpc.client.Client'
+   classpath = sourceSets.main.runtimeClasspath
 }
 
 group = 'org.example'
@@ -28,7 +38,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     testImplementation 'org.mockito:mockito-core:2.1.0'
     //testImplementation 'org.junit.junit:3.8.1'
-
 }
 
 test {

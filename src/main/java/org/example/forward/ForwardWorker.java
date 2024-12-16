@@ -1,6 +1,7 @@
 package org.example.forward;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.logging.Logger;
 
 import org.example.node.Node;
 
@@ -15,6 +16,9 @@ public class ForwardWorker{
     private int serverPort;
     private PeerToPeerBlockingStub[] stubs;
     private BlockingQueue<ForwardMessage> queue;
+
+    //init logging
+    private static final Logger logger = Logger.getLogger(ForwardWorker.class.getName());
 
     public ForwardWorker(Node[] nodes, int serverPort, BlockingQueue<ForwardMessage> queue) {
         this.nodes = nodes;
@@ -63,7 +67,7 @@ public class ForwardWorker{
             return;
         }
 
-        System.out.println("Forwarding message to peer: " + to);
+        logger.info(String.format("Forward key %s to peer: %d", key, to));
         PeerToPeerProto.ForwardRequest request = PeerToPeerProto.ForwardRequest.newBuilder().setKey(key).setValue(value).build();
         PeerToPeerProto.ForwardResponse response = this.stubs[index].forward(request);
         //System.out.println(response.getMessage()); 

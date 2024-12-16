@@ -25,9 +25,22 @@ public class Client {
         return workload;
     }
 
+    public static PutRequest[] generateRandomWorkload(int workloadSize) {
+        PutRequest[] workload = new PutRequest[workloadSize];
+        for (int i = 0; i < workloadSize; i++) { // Changed from i = 1 to i = 0
+            workload[i] = PutRequest.newBuilder()
+                    .setKey(java.util.UUID.randomUUID().toString()) // Generate random key
+                    .setValue("value-" + (i + 1)) // Adjusted value to start from 1
+                    .build();
+        }
+        return workload;
+    }
+
     public static void main(String[] args) {
         // Create a channel to the server
         // args[0] is comma separated list of server ports
+        int worklLoadSize = Integer.parseInt(args[1]);
+
         String[] serverPorts = args[0].split(",");
         Node[] servers = Node.createNodes(serverPorts);
         ManagedChannel[] channel = new ManagedChannel[servers.length];
@@ -42,7 +55,7 @@ public class Client {
 
         System.out.println("Client started");
         // send requests to the server
-        PutRequest[] workLoad = generateWorkLoad(10);
+        PutRequest[] workLoad = generateRandomWorkload(worklLoadSize);
         for (int i = 0; i < workLoad.length; i++) {
             PutRequest request = workLoad[i];
             int serverIndex = i % servers.length;

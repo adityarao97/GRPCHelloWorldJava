@@ -1,6 +1,7 @@
 package org.example.grpc.StoreService;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.logging.Logger;
 
 import org.example.storage.Storage;
 import org.example.storage.StorageRequest;
@@ -17,6 +18,9 @@ public class StoreServiceImpl extends StoreServiceImplBase {
     BlockingQueue<StorageRequest> requestQueue;
     Storage storage;
 
+    // init logger
+    private static final Logger logger = Logger.getLogger(StoreServiceImpl.class.getName());
+
     public StoreServiceImpl() {
         this.requestQueue = null;
     }
@@ -28,7 +32,8 @@ public class StoreServiceImpl extends StoreServiceImplBase {
 
     @Override
     public void put(PutRequest request, StreamObserver<PutResponse> responseObserver) {
-        System.out.println("Received request: " + request.getKey() + " -> " + request.getValue());
+        //System.out.println("Received request: " + request.getKey() + " -> " + request.getValue());
+        logger.info("[StoreServiceImpl] Received request: " + request.getKey() + " -> " + request.getValue());
         if (this.requestQueue != null) {
             this.requestQueue.add(new StorageRequest(request.getKey(), request.getValue()));
         }

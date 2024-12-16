@@ -23,7 +23,7 @@ public class PeerToPeerImpl extends PeerToPeerImplBase {
     @Override
     public void forward(ForwardRequest request, StreamObserver<ForwardResponse> responseObserver) {
         String message = "receive forwarding message: " + request.getKey() + " " + request.getValue();
-        System.out.println(message);
+        //System.out.println(message);
         // push message to queue
         if (this.requestQueue != null) { 
             this.requestQueue.add(new StorageRequest(request.getKey(), request.getValue()));

@@ -18,3 +18,8 @@
 # in another terminal, run another server
 ./gradlew runServer --args="8913 8912,8913"
 ```
+
+# Run the benchmark
+```sh
+./scripts/benchmark_virtual_node.sh ${n_nodes} ${worload_size} ${virtual_node}
+```

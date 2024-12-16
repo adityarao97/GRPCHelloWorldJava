@@ -1,0 +1,24 @@
+workload: 
+  key: UUID 
+  value: value-1
+  request: 5000
+  node: 5
+benchmark:
+  - virtual_node: 1
+    output_size: [964, 970, 980, 983, 1103]
+    range: "964-1103"
+  - virtual_node: 2
+    output_size: [1011, 1008, 987, 1029, 965] 
+    range: "965-1029"
+  - virtual_node: 3
+    output_size: [987, 1046, 1019, 988, 960]
+    range: "960-1046"
+  - virtual_node: 4
+    output_size: [962, 971, 1000, 1021, 1046] 
+    range: "962-1046"
+  - virtual_node: 5
+    output_size: [940, 983, 991, 1018, 1068] 
+    range: "940-1068"
+  - virtual_node: 6
+    output_size: [960, 985, 988, 1023, 1044]
+    range: "960-1044"

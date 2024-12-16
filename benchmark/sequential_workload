@@ -1,0 +1,64 @@
+workload: 
+  key: key-1
+  value: value-1
+  request: 5000
+  node: 5
+
+node=5, virtual_node = 1, request = 5000
+Response from server: 8912 size: 979
+Response from server: 8913 size: 961
+Response from server: 8914 size: 988
+Response from server: 8915 size: 1032
+Response from server: 8916 size: 1040
+range: 961-1040
+
+node=5, virtual_node = 2, request = 5000
+
+Response from server: 8912 size: 1032
+Response from server: 8913 size: 961
+Response from server: 8914 size: 988
+Response from server: 8915 size: 1040
+Response from server: 8916 size: 979
+range: 979-1040
+
+node=5, virtual_node = 3, request = 5000
+Response from server: 8912 size: 1023
+Response from server: 8913 size: 946
+Response from server: 8914 size: 1021
+Response from server: 8915 size: 1028
+Response from server: 8916 size: 982
+range: 946-1028
+
+node=5, virtual_node = 4, request = 5000
+Response from server: 8912 size: 1010
+Response from server: 8913 size: 1056
+Response from server: 8914 size: 1017
+Response from server: 8915 size: 938
+Response from server: 8916 size: 979
+range: 938-1056
+
+node=5, virtual_node = 5, request = 5000
+Response from server: 8912 size: 1017
+Response from server: 8913 size: 1018
+Response from server: 8914 size: 960
+Response from server: 8915 size: 979
+Response from server: 8916 size: 1026
+range: 960-1026
+
+node=5, virtual_node = 6, request = 5000
+Response from server: 8912 size: 1030
+Response from server: 8913 size: 1015
+Response from server: 8914 size: 1011
+Response from server: 8915 size: 982
+Response from server: 8916 size: 962
+range: 962-1030
+
+node: 7, virtual_node = 3, request: 5000
+Response from server: 8912 size: 717
+Response from server: 8913 size: 669
+Response from server: 8914 size: 738
+Response from server: 8915 size: 735
+Response from server: 8916 size: 712
+Response from server: 8917 size: 754
+Response from server: 8918 size: 675
+range: 669-754
